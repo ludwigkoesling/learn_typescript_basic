@@ -10,6 +10,7 @@ interface Todo {
 
 axios.get(url).then(response => {
     
+    // todo is a Type of Todo which has properties 
     const todo = response.data as Todo;
 
     const id = todo.id;
