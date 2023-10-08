@@ -1,10 +1,14 @@
 // Best solution using different types in for the same logic
 
-import { NumbersCollection } from './NumbersCollection';
+export interface Sortable {
+  length: number;
+  compare(leftIndex: number, rightIndex: number): boolean;
+  swap(leftIndex: number, rightIndex: number): void;
+}
 
 // Note: Bubble Sort is used here and its not the best solution for sorting
 export class GenericSorter {
-  constructor(public collection: NumbersCollection) {}
+  constructor(public collection: Sortable) {}
   sort(): void {
     const { length } = this.collection;
 
