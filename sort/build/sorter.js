@@ -1,7 +1,26 @@
 "use strict";
 // Best solution using different types in for the same logic
+// Interface vs Abstract Class / Inheritance
+// - Both setting up a contract between different classes
+// - Interfaces promote loose couple between (very) different objects
+// - Abtract classes strongly couples classes together ("close related classes" kind of a downside)
+//  - build up a definition of an object
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GenericSorter = void 0;
+exports.GenericSorter = exports.Sorter = void 0;
+// Using the abstract class sorter as parent class for the collections
+class Sorter {
+    sort() {
+        const { length } = this;
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length - i - 1; j++) {
+                if (this.compare(j, j + 1)) {
+                    this.swap(j, j + 1);
+                }
+            }
+        }
+    }
+}
+exports.Sorter = Sorter;
 // Note: Bubble Sort is used here and its not the best solution for sorting
 class GenericSorter {
     constructor(collection) {
