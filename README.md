@@ -11,3 +11,6 @@ project for playing with basic typescript
     - outDir -> out comment and './build'
     - rootDir -> './src' 
   - tsc -w (runs and build with hot reload)
+
+
+npm init -y 
