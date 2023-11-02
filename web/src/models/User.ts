@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { Eventing } from './Eventing';
 
 interface UserProps {
   id?: number;
@@ -6,11 +6,9 @@ interface UserProps {
   age?: number;
 }
 
-type Callback = () => void;
-
 export class User {
-  // we don't know the different event names, but strings pointing to array of callback functions
-  events: { [key: string]: Callback[] } = {};
+  // hardcoded, because we don`t really need to swap the class
+  events: Eventing = new Eventing();
   constructor(private data: UserProps) {}
 
   get(propName: string): string | number {
@@ -19,40 +17,5 @@ export class User {
 
   set(update: UserProps): void {
     Object.assign(this.data, update);
-  }
-
-  on(eventName: string, callback: Callback): void {
-    // this.events[eventName] (the array value) is undefined when a user is created
-    // this line prevents it, either its filled or empty
-    const handlers = this.events[eventName] || [];
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  }
-  trigger(eventName: string): void {
-    const handlers = this.events[eventName];
-    if (!handlers || handlers.length === 0) {
-      return;
-    }
-    handlers.forEach((callback) => {
-      callback();
-    });
-  }
-
-  fetch(): void {
-    axios
-      .get(`http://localhost:3000/users/${this.get('id')}`)
-      .then((response: AxiosResponse): void => {
-        this.set(response.data);
-      });
-  }
-
-  save(): void {
-    const id = this.get('id');
-
-    if (id) {
-      axios.put(`http://localhost:3000/users/${id}`, this.data);
-    } else {
-      axios.post(`http://localhost:3000/users`, this.data);
-    }
   }
 }
