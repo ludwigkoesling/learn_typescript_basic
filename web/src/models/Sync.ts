@@ -8,11 +8,11 @@ export class Sync<T extends HasId> {
   constructor(public rootUrl: string) {}
 
   // handled by the calling class
-  fetch(id: number): AxiosPromise {
+  fetch = (id: number): AxiosPromise => {
     return axios.get(`${this.rootUrl}/${id}`);
-  }
+  };
 
-  save(data: T): AxiosPromise {
+  save = (data: T): AxiosPromise => {
     // ES15 reconstruct
     const { id } = data;
     // returns a promise, which gives information
@@ -21,5 +21,5 @@ export class Sync<T extends HasId> {
     } else {
       return axios.post(this.rootUrl, data);
     }
-  }
+  };
 }

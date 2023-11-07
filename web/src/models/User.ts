@@ -19,4 +19,23 @@ export class User {
   constructor(attr: UserProps) {
     this.attributes = new Attributes<UserProps>(attr);
   }
+
+  // using accessors (getter), not trying to call a function
+  // giving back reference to events.on()
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
+
+  set(update: UserProps): void {
+    this.attributes.set(update);
+    this.events.trigger('change');
+  }
 }
