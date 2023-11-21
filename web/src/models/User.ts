@@ -35,4 +35,9 @@ export class User extends Model<UserProps> {
   //     new LocalSync<UserProps>(rootUrl)
   //   );
   // }
+
+  setRandomAge(): void {
+    const age = Math.round(Math.random() * 100);
+    this.set({ age });
+  }
 }
