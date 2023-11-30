@@ -11,7 +11,9 @@
   "scripts": {
     "start:parcel": "npx parcel index.html",
     "start:server": "json-server -w db.json",
-    "start": "concurrently npm:start:*"
+    "start": "concurrently npm:start:*",
+    "cleanup": "del .parcel-cache dist",
+    "dev": "npm run cleanup && parcel ./index.html"
   },
   "keywords": [],
   "author": "",
